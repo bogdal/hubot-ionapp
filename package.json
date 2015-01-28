@@ -4,24 +4,21 @@
   "version": "0.0.1",
   "author": "Adam Bogdał <adam@bogdal.pl>",
   "license": "BSD",
-
   "keywords": [
     "hubot",
     "hubot-ionapp"
   ],
-
   "repository": {
     "type": "git",
     "url": "git://github.com/bogdal/hubot-ionapp.git"
   },
-
   "bugs": {
     "url": "https://github.com/bogdal/hubot-ionapp/issues"
   },
-
   "dependencies": {
-    "coffee-script": "~1.6"
+    "chrono-node": "~1.0.2",
+    "coffee-script": "~1.6",
+    "moment": "~2.9.0"
   },
-
   "main": "index.coffee"
 }
