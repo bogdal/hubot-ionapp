@@ -5,12 +5,12 @@
 Run the npm install command...
 
     npm install hubot-ionapp
-    
+
 
 Add the script to the `external-scripts.json` file
 
     ["hubot-ionapp"]
-    
+
 ## Configuration
 
 ### Set the environment variables
@@ -19,12 +19,11 @@ Add the script to the `external-scripts.json` file
 
 ## Usage
 
-### Returns a list of users who are absent at work
+### Returns a list of users who are absent today
     hubot who's absent
-    
-### Returns a list of users who will be absent tomorrow
-    hubot who'll be absent tomorrow
-    
-### Returns a list of users who will be absent on specified day (yyyy-mm-dd)
-    hubot who'll be absent on <date>
 
+### Returns a list of users who will be absent on specified day
+    hubot who'll be absent tomorrow
+    hubot who'll be absent on Friday
+    hubot who'll be absent on Feb 28
+    hubot who'll be absent on 2015-02-14

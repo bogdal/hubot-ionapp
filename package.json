@@ -20,5 +20,14 @@
     "coffee-script": "~1.6",
     "moment": "~2.9.0"
   },
-  "main": "index.coffee"
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "chai": "~1.8.1",
+    "sinon-chai": "~2.4.0",
+    "sinon": "~1.7.3"
+  },
+  "main": "index.coffee",
+  "scripts": {
+    "test": "script/test"
+  }
 }

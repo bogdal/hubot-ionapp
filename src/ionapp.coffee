@@ -9,9 +9,8 @@
 #   HUBOT_IONAPP_AUTH_TOKEN
 #
 # Commands:
-#   hubot who's absent - Returns a list of users who are absent at work.
-#   hubot who'll be absent tomorrow - Returns a list of users who will be absent tomorrow.
-#   hubot who'll be absent on <date> - Returns a list of users who will be absent on specified day (yyyy-mm-dd).
+#   hubot who's absent - Returns a list of users who are absent today.
+#   hubot who'll be absent on <date> - Returns a list of users who will be absent on specified day.
 #
 # Author:
 #   bogdal
