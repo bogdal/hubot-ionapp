@@ -1,4 +1,7 @@
-# Hubot IONAPP Script
+# Hubot IONapp Script
+
+[![IONapp](https://ionapp.com/static/images/logo-color.png)](https://ionapp.com)
+
 
 ## Installation
 
@@ -17,9 +20,11 @@ Add the script to the `external-scripts.json` file
     export HUBOT_IONAPP_COMPANY_NAME='my_company'
     export HUBOT_IONAPP_AUTH_TOKEN='1234..'
 
+To obtain `auth token` go to `https://<company name>.ionapp.com/api/tokens/` and generate one.
+
 ## Usage
 
-### Returns a list of users who are absent today
+### Returns a list of users who are absent
     hubot who's absent
 
 ### Returns a list of users who will be absent on specified day
@@ -27,3 +32,10 @@ Add the script to the `external-scripts.json` file
     hubot who'll be absent on Friday
     hubot who'll be absent on Feb 28
     hubot who'll be absent on 2015-02-14
+    
+### Returns a list of users who requested a home office
+    hubot who's at home
+    hubot who's working at home
+    
+### Returns a list of users who requested a home office on specified day
+    hubot who'll be working at home on Friday

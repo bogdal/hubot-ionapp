@@ -2,7 +2,9 @@
 #   Integration with IONAPP service.
 #
 # Dependencies:
-#   None
+#   "chrono-node": "~1.0.2",
+#   "coffee-script": "~1.6",
+#   "moment": "~2.9.0"
 #
 # Configuration:
 #   HUBOT_IONAPP_COMPANY_NAME
@@ -26,36 +28,22 @@ appUrl = "https://#{companyName}.ionapp.com"
 module.exports = (robot) ->
 
   robot.respond /who('s| is) absent$/i, (msg) ->
-    timeOff msg, new Date
+    renderResponse timeOff, msg
 
   robot.respond /who('s|'ll be| is| will be) absent (on)?(.*)$/i, (msg) ->
     dateString = msg.match[3]
-    date = chrono.parseDate dateString
-    if date
-      timeOff msg, date
-    else
-      msg.send "Not sure what #{dateString} means"
+    renderResponse timeOff, msg, dateString
 
-  robot.respond /who('s| is)( working)? (at|from) home$/i, (msg) ->
-    scheduleOccurences msg, new Date
+  robot.respond /who('s| is| works)( working)? (at|from) home$/i, (msg) ->
+    renderResponse homeOffice, msg
 
-  robot.respond /who('s|'ll be| is| will be)( working)? (at|from) home (on)?(.*)$/i, (msg) ->
+  robot.respond /who('s|'ll be|'ll work| is| will be| will work)( working)? (at|from) home (on)?(.*)$/i, (msg) ->
     dateString = msg.match[5]
-    date = chrono.parseDate dateString
-    if date
-      scheduleOccurences msg, date
-    else
-      msg.send "Not sure what #{dateString} means"
+    renderResponse homeOffice, msg, dateString
 
-timeOff = (msg, date) ->
-  if not companyName or not authToken
-    msg.send 'Configure this script by setting the HUBOT_IONAPP_COMPANY_NAME and HUBOT_IONAPP_AUTH_TOKEN environment variables'
-    return
-
-  dateString = moment(date).format 'YYYY-MM-DD'
-  msg.http(appUrl + "/api/timeoff_requests/?format=json&status=pending,accepted&on=#{dateString}")
-    .headers(Authorization: "Token #{authToken}")
-    .get() (err, res, body) ->
+timeOff = (msg, dateString) ->
+  url = "/api/timeoff_requests/?format=json&status=pending,accepted&on=#{dateString}"
+  requestGet(msg, url) (err, res, body) ->
       json = JSON.parse(body)
       if json['detail']
         msg.send json['detail']
@@ -66,38 +54,44 @@ timeOff = (msg, date) ->
         buildMessage = (item) ->
           owner = item['owner']
           message = " - #{owner['first_name']} #{owner['last_name']}"
-
           end_date = item['end_date'].slice(0, 10)
           if end_date != dateString
             message += " (until #{end_date})"
-          if item['is_home_office']
-            message += " - Home office"
           if item['status'] != 'Accepted'
             message += " (#{item['status']})"
           message
-
         msg.send "List of absent users on #{dateString}:\n" + (buildMessage item for item in json['results']).join('\n')
 
-scheduleOccurences = (msg, date) ->
-  if not companyName or not authToken
-    msg.send 'Configure this script by setting the HUBOT_IONAPP_COMPANY_NAME and HUBOT_IONAPP_AUTH_TOKEN environment variables'
-    return
-
-  dateString = moment(date).format 'YYYY-MM-DD'
-  msg.http(appUrl + "/api/schedule_occurences/?format=json&on=#{dateString}")
-    .headers(Authorization: "Token #{authToken}")
-    .get() (err, res, body) ->
+homeOffice = (msg, dateString) ->
+  url = "/api/schedule_occurences/?format=json&on=#{dateString}"
+  requestGet(msg, url) (err, res, body) ->
       json = JSON.parse(body)
       home_office = []
       for request in json
         if request['location']['name'] == 'home'
           home_office.push(request)
-
       if not home_office.length
         msg.send "Hurray! No one planned work at home on #{dateString}."
       else
         buildMessage = (item) ->
           owner = item['owner']
           " - #{owner['first_name']} #{owner['last_name']}"
-
         msg.send "Users who scheduled a home office on #{dateString}:\n" + (buildMessage item for item in home_office).join('\n')
+
+requestGet = (msg, url) ->
+  msg.http(appUrl + url)
+    .headers(Authorization: "Token #{authToken}")
+    .get()
+
+renderResponse = (func, msg, dateString=null) ->
+  if not companyName or not authToken
+    msg.send 'Configure this script by setting the HUBOT_IONAPP_COMPANY_NAME and HUBOT_IONAPP_AUTH_TOKEN environment variables'
+    return
+  if dateString
+    date = chrono.parseDate dateString
+    if not date
+      msg.send "Not sure what#{dateString} means"
+      return
+  else
+    date = new Date
+  func msg, moment(date).format 'YYYY-MM-DD'
