@@ -39,3 +39,18 @@ To obtain `auth token` go to `https://<company name>.ionapp.com/api/tokens/` and
     
 ### Returns a list of users who requested a home office on specified day
     hubot who'll be working at home on Friday
+
+
+### Displays a list of IONapp team members
+    hubot show me the team
+
+
+### Maps current user to the IONapp username
+    hubot remember me as abogdal
+
+    
+### Adds a home office requests
+    hubot I will be working at home on Monday
+    hubot I will be working at home on Feb 10 to 14
+    
+It covers all work time windows in specified date range.
