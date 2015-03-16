@@ -108,6 +108,8 @@ module.exports = (robot) ->
             'location': 'home',
             'comment': 'added by hubot'}
           requestPost(msg, baseUrl, JSON.stringify(data)) (err, res, body) ->
+            if err
+              msg.send "Ops! Houston, we have a problem: #{err}"
       msg.send "OK. I'm adding a home office requests (#{messageDate})"
 
 timeOff = (msg, dateString) ->
