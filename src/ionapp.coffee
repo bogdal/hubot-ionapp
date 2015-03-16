@@ -15,9 +15,9 @@
 #   hubot who'll be absent on <date> - Returns a list of users who will be absent on specified day.
 #   hubot who's at home - Returns a list of users who are working at home.
 #   hubot who'll be working at home on <date> - Returns a list of users who will be working at home on specified day.
-#   hubot show me the team - Displays a list of IONapp team members.
+#   hubot show me the team - Displays a list of IONapp team members and chat users mapped with them.
 #   hubot remember me as <username> - Maps current user to the IONapp username.
-#   hubot i will be working at home on <date/date range> - Adds home office requests.
+#   hubot I will be working at home on <date/date range> - Adds a home office requests.
 #
 # Author:
 #   bogdal
