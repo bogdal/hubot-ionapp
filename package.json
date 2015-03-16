@@ -1,7 +1,7 @@
 {
   "name": "hubot-ionapp",
   "description": "Integration with IONAPP service",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Adam Bogdał <adam@bogdal.pl>",
   "license": "BSD",
   "keywords": [
