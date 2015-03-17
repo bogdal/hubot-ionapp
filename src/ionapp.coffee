@@ -77,7 +77,7 @@ module.exports = (robot) ->
           return
       msg.send "WAT? Are you sure '#{username}' is a correct username?"
 
-  robot.respond /I will( be)?( working| work)? (at|from) home (on)?(.*)$/i, (msg) ->
+  robot.respond /I('ll| will) ((be working|work) (at|from)|be staying|stay) home (on)?(.*)$/i, (msg) ->
     dateString = msg.match[5]
     date = chrono.parse dateString
     parsedResult = date[0]
