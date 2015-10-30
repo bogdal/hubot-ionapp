@@ -13,8 +13,6 @@
 # Commands:
 #   hubot who's absent - Returns a list of users who are absent.
 #   hubot who'll be absent on <date> - Returns a list of users who will be absent on specified day.
-#   hubot who's at home - Returns a list of users who are working at home.
-#   hubot who'll be working at home on <date> - Returns a list of users who will be working at home on specified day.
 #   hubot show me the team - Displays a list of IONapp team members and chat users mapped with them.
 #   hubot remember me as <username> - Maps current user to the IONapp username.
 #   hubot I will be working at home on <date/date range> - Adds a home office requests.
@@ -36,13 +34,6 @@ module.exports = (robot) ->
   robot.respond /who('s|'ll be| is| will be) absent (on)?(.*)$/i, (msg) ->
     dateString = msg.match[3]
     renderResponse timeOff, msg, dateString
-
-  robot.respond /who('s| is| works)( working)? (at|from) home$/i, (msg) ->
-    renderResponse homeOffice, msg
-
-  robot.respond /who('s|'ll be|'ll work| is| will be| will work)( working)? (at|from) home (on)?(.*)$/i, (msg) ->
-    dateString = msg.match[5]
-    renderResponse homeOffice, msg, dateString
 
   robot.respond /show me the team$/i, (msg) ->
     url = "/api/users/?format=json"
@@ -130,24 +121,10 @@ timeOff = (msg, dateString) ->
             message += " (until #{end_date})"
           if item['status'] != 'Accepted'
             message += " (#{item['status']})"
+          if item['location']
+            message += " - HomeOffice"
           message
         msg.send "List of absent users on #{dateString}:\n" + (buildMessage item for item in json['results']).join('\n')
-
-homeOffice = (msg, dateString) ->
-  url = "/api/schedule_occurences/?format=json&on=#{dateString}"
-  requestGet(msg, url) (err, res, body) ->
-      json = JSON.parse(body)
-      home_office = []
-      for request in json
-        if request['location']['name'] == 'home'
-          home_office.push(request)
-      if not home_office.length
-        msg.send "Hurray! No one planned work at home on #{dateString}."
-      else
-        buildMessage = (item) ->
-          owner = item['owner']
-          " - #{owner['first_name']} #{owner['last_name']}"
-        msg.send "Users who scheduled a home office on #{dateString}:\n" + (buildMessage item for item in home_office).join('\n')
 
 requestGet = (msg, url) ->
   msg.http(appUrl + url)
