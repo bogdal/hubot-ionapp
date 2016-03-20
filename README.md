@@ -57,5 +57,5 @@ It covers all work time windows in specified date range. This command requires `
 Docker and [docker-compose](https://docs.docker.com/compose/install/) are required to be installed.
 
     $ docker-compose build
-    $ docker-compose run hubot ./bin/hubot
-    hubot> hubot who's absent
+    $ docker-compose run hubot
+    mybot> mybot who's absent

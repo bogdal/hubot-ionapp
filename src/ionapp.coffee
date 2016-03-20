@@ -24,7 +24,7 @@ chrono = require 'chrono-node'
 moment = require 'moment'
 companyName = process.env.HUBOT_IONAPP_COMPANY_NAME
 authToken = process.env.HUBOT_IONAPP_AUTH_TOKEN
-appUrl = "https://#{companyName}.ionapp.com"
+appUrl = "https://#{companyName}.timeion.com"
 
 module.exports = (robot) ->
 

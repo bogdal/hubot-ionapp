@@ -1,5 +1,5 @@
 hubot:
     build: .
     environment:
-      - HUBOT_IONAPP_COMPANY_NAME=
-      - HUBOT_IONAPP_AUTH_TOKEN=
+      - HUBOT_IONAPP_COMPANY_NAME
+      - HUBOT_IONAPP_AUTH_TOKEN
