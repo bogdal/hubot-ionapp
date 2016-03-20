@@ -3,7 +3,7 @@
   "description": "Integration with IONAPP service",
   "version": "0.0.4",
   "author": "Adam Bogdał <adam@bogdal.pl>",
-  "license": "BSD",
+  "license": "BSD-2-Clause",
   "keywords": [
     "hubot",
     "hubot-ionapp"
