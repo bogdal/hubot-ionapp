@@ -1,5 +1,5 @@
 # Description:
-#   Integration with IONAPP service.
+#   Integration with timeION service.
 #
 # Dependencies:
 #   "chrono-node": "~1.0.2",
@@ -13,8 +13,8 @@
 # Commands:
 #   hubot who's absent - Returns a list of users who are absent.
 #   hubot who'll be absent on <date> - Returns a list of users who will be absent on specified day.
-#   hubot show me the team - Displays a list of IONapp team members and chat users mapped with them.
-#   hubot remember me as <username> - Maps current user to the IONapp username.
+#   hubot show me the team - Displays a list of timeION team members and chat users mapped with them.
+#   hubot remember me as <username> - Maps current user to the timeION username.
 #   hubot I will be working at home on <date/date range> - Adds a home office requests.
 #
 # Author:
@@ -49,7 +49,7 @@ module.exports = (robot) ->
         if systemUser
           message += " as @#{systemUser['name']}"
         message
-      msg.send "Here is a list of IONapp team members:\n" + (buildMessage item for item in json['results']).join('\n')
+      msg.send "Here is a list of timeION team members:\n" + (buildMessage item for item in json['results']).join('\n')
 
   robot.respond /remember me as ([a-z0-9-.]+)\s*$/i, (msg) ->
     url = "/api/users/?format=json"
