@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/bogdal/hubot-ionapp.svg?branch=master)](https://travis-ci.org/bogdal/hubot-ionapp)
 [![npm version](https://badge.fury.io/js/hubot-ionapp.svg)](http://badge.fury.io/js/hubot-ionapp)
 
-[![timeION](https://timeion.com/landing/images/c4c7a3e6.timeION-logo_onwhite.png)](https://timeion.com)
+[![timeION](https://timeion.com/wp-content/uploads/2015/12/ion_logo_dark.svg)](https://timeion.com)
 
 
 ## Installation
